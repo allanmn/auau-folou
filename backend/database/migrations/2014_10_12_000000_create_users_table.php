@@ -15,11 +15,19 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
+
+        // Insert some stuff
+        DB::table('users')->insert(
+            array(
+                'email' => 'adm@aafolou.com',
+                'name' => 'admin',
+                'password' => '$2y$10$F0Eexl1V28g1NzCxCTFaDuT/O7KQJ5wTsmv1MEyHqhe/byQ24saZe'
+            )
+        );
     }
 
     /**
