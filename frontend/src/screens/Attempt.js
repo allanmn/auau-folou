@@ -1,25 +1,32 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 import "../css/Attempt.css";
 
-const AttemptPage = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleLoginAttempt = () => {
-    // Simulate successful login for demonstration purposes
-    setIsLoggedIn(true);
-  };
+const AttemptPage = () => {
+  const navigate = useNavigate();
+
+  const [loading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading for 3 seconds
+    const timeout = setTimeout(() => {
+      navigate('/login');
+    }, 3000);
+    // Clear the timeout if the component is unmounted
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
     <div className="attempt-container">
-      {isLoggedIn ? (
-        <Redirect to="/dashboard" />
+      {loading ? (
+        <div className="loader">
+          <CircularProgress size={80} />
+        </div>
       ) : (
         <div className="attempt-card">
           <h2>Login Attempt Page</h2>
-          <button onClick={handleLoginAttempt} className="attempt-button">
-            Try Login
-          </button>
           <p>
             Not logged in yet? <a href="/login">Go to Login</a>
           </p>
