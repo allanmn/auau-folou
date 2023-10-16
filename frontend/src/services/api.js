@@ -1,61 +1,90 @@
-import axios from 'axios';
-import AuthService from './AuthService';
+import React from "react";
 
-const api = axios.create({
-  baseURL: 'http://localhost:8000', // Update with your API URL
-});
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import AuthService from "./auth";
 
-// Add a request interceptor to include the token in all requests
-api.interceptors.request.use(config => {
-  const token = AuthService.getToken();
+const API_BASE_URL = "http://localhost:8000/api"; // Update with your API URL
 
-  // If the token exists, add it to the request parameters
-  if (token) {
-    config.params = {
-      ...config.params,
-      token,
+const ApiService = () => {
+  const api = axios.create({
+    baseURL: API_BASE_URL,
+  });
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const requestInterceptor = api.interceptors.request.use((config) => {
+      const token = AuthService().getToken();
+
+      if (token) {
+        config.headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      return config;
+    });
+
+    const responseInterceptor = api.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.status === 401) {
+          AuthService.logout();
+          navigate("/login");
+        }
+        return Promise.reject(error);
+      }
+    );
+
+    // Cleanup interceptors on component unmount
+    return () => {
+      api.interceptors.request.eject(requestInterceptor);
+      api.interceptors.response.eject(responseInterceptor);
     };
-  }
+  }, []); // Empty dependency array means this effect will only run once
 
-  return config;
-});
-
-const ApiService = {
-  async get(endpoint, params = {}) {
+  const get = async (endpoint, params = {}) => {
     try {
       const response = await api.get(endpoint, { params });
       return response.data;
     } catch (error) {
       throw new Error(`Error fetching data: ${error.message}`);
     }
-  },
+  };
 
-  async post(endpoint, data) {
+  const post = async (endpoint, data) => {
     try {
       const response = await api.post(endpoint, data);
       return response.data;
     } catch (error) {
       throw new Error(`Error creating resource: ${error.message}`);
     }
-  },
+  };
 
-  async put(endpoint, data) {
+  const put = async (endpoint, data) => {
     try {
       const response = await api.put(endpoint, data);
       return response.data;
     } catch (error) {
       throw new Error(`Error updating resource: ${error.message}`);
     }
-  },
+  };
 
-  async delete(endpoint) {
+  const remove = async (endpoint) => {
     try {
       const response = await api.delete(endpoint);
       return response.data;
     } catch (error) {
       throw new Error(`Error deleting resource: ${error.message}`);
     }
-  },
+  };
+
+  return {
+    get,
+    post,
+    put,
+    remove,
+  };
 };
 
 export default ApiService;
