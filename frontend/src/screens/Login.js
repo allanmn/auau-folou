@@ -47,6 +47,7 @@ const LoginPage = () => {
       AuthService().setToken(response.token);
 
       // go to dash
+      navigate('/dashboard')
     } catch (e) {
       toast("Credenciais incorretas!");
     } finally {

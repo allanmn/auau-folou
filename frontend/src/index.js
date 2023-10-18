@@ -7,17 +7,20 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  Navigate,
 } from "react-router-dom";
 import AttemptPage from "./screens/Attempt";
 import Login from "./screens/Login";
 import Dashboard from "./screens/Dashboard";
+import Base from "./screens/Base";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Fragment>
-      <Route exact path="/" element={<AttemptPage />} />
+      <Route exact path="/attempt" red element={<AttemptPage />} />
       <Route exact path="/login" element={<Login />} />
-      <Route exact path="/dashboard" element={<Dashboard />} />
+      <Route exact path="/dashboard" element={<Base />} />
+      <Route exact path="/" element={<Navigate to="/attempt" />} />
     </Fragment>
   )
 );

@@ -1,5 +1,8 @@
+import React from "react";
+import "../css/Dashboard.css";
+
 export default () => (
   <div>
-    <h1>Welcome to the Dashboard!</h1>
+    <h1>Bem vindo à Dashboard!</h1>
   </div>
 );
