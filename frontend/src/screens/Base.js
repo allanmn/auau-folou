@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import Sidebar from "../components/Sidebar";
-import { useParams } from "react-router-dom";
 import Dashboard from "./Dashboard";
 
 import "../css/Base.css";
+import OwnersList from "./owners/ListOwnersPage";
 
 const Base = () => {
-  const { page } = useParams();
+  const location = window.location.pathname;
 
-  const [currentPage, setCurrentPage] = useState(page ?? "dashboard");
+  const [currentPage, setCurrentPage] = useState(location ?? "/dashboard");
 
   const changePage = (page) => {
     setCurrentPage(page);
@@ -17,8 +17,11 @@ const Base = () => {
   let content;
 
   switch (currentPage) {
-    case "dashboard":
+    case "/dashboard":
       content = <Dashboard />;
+      break;
+    case "/owners":
+      content = <OwnersList />;
       break;
     default:
       content = <Dashboard />;

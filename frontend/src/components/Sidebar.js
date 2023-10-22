@@ -2,12 +2,12 @@ import React from "react";
 import {
   Drawer,
   List,
-  ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Dashboard, Assignment, Description, ExitToApp } from "@mui/icons-material";
+import { Dashboard, ExitToApp, People } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 import styles from "../css/Sidebar.module.css";
 
 const Sidebar = () => {
@@ -41,13 +41,22 @@ const Sidebar = () => {
       </div>
       ;
       <List>
-        <ListItemButton className={styles["sidebar-list-button"]}>
+        <ListItemButton className={styles["sidebar-list-button"]} component={Link} to="/dashboard">
           <ListItemIcon>
             <Dashboard />
           </ListItemIcon>
           <ListItemText
             className={styles["sidebar-list-item-text"]}
             primary="Dashboard"
+          />
+        </ListItemButton>
+      <ListItemButton className={styles["sidebar-list-button"]} component={Link} to="/owners">
+          <ListItemIcon>
+            <People />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Proprietários"
           />
         </ListItemButton>
         <ListItemButton className={styles["sidebar-list-button"]} onClick={handleLogout}>
