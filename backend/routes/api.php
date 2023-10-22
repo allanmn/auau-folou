@@ -24,7 +24,7 @@ Route::group([
 });
 
 Route::group([
-    "middleware" => 'jwt.auth'
+
 ],function ($router){
     Route::resource("species",\App\Http\Controllers\SpecieController::class);
     Route::resource("owners",\App\Http\Controllers\OwnerController::class);
