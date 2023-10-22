@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -15,7 +15,7 @@ import styles from "../../css/styles";
 import Loader from "../../components/Loader";
 import ApiService from "../../services/api";
 import { showSuccess, showToastError } from "../../services/helper";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CreateOwnerPage = () => {
   const [ownerData, setOwnerData] = useState({
@@ -24,9 +24,12 @@ const CreateOwnerPage = () => {
     address: "",
     email: "",
   });
+
   const [loader, setLoader] = useState({
     isOpen: false,
   });
+
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
@@ -35,15 +38,22 @@ const CreateOwnerPage = () => {
     setOwnerData({ ...ownerData, [name]: value });
   };
 
-  const handleCreateOwner = () => {
+  const handleSaveOwner = () => {
     setLoader({ isOpen: true });
 
+    if (id) {
+      updateOwner();
+    } else {
+      createOwner();
+    }
+  };
+
+  const createOwner = () => {
     ApiService()
       .post("/owners", ownerData)
       .then(
         (response) => {
           console.log(response);
-          setLoader({ isOpen: false });
           showSuccess("Propritário cadastrado com sucesso!");
           navigate("/owners");
         },
@@ -53,6 +63,37 @@ const CreateOwnerPage = () => {
         }
       );
   };
+
+  const updateOwner = () => {
+    ApiService()
+      .put(`/owners/${id}`, ownerData)
+      .then(
+        (response) => {
+          setLoader({ isOpen: false });
+          showSuccess("Propritário atualizado com sucesso!");
+          navigate("/owners");
+        },
+        (error) => {
+          setLoader({ isOpen: false });
+          showToastError(error.message);
+        }
+      );
+  };
+
+  useEffect(() => {
+    if (id) {
+      ApiService()
+        .get(`/owners/${id}`)
+        .then(
+          (response) => {
+            setOwnerData(response.owner);
+          },
+          (error) => {
+            showToastError(error.message);
+          }
+        );
+    }
+  }, [id]);
 
   return (
     <div>
@@ -120,7 +161,7 @@ const CreateOwnerPage = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleCreateOwner}
+              onClick={handleSaveOwner}
               style={{ ...styles.grayBtn, ...styles.listItemButton }}
             >
               SALVAR

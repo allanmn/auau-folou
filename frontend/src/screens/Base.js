@@ -6,6 +6,8 @@ import "../css/Base.css";
 import OwnersList from "./owners/ListOwnersPage";
 import CreateOwnerPage from "./owners/CreateOwnerPage";
 
+import { withRouter } from "../components/WithRouter";
+
 class Base extends Component {
   constructor(props) {
     super(props);
@@ -14,17 +16,14 @@ class Base extends Component {
     this.state = {
       currentPage: path ?? "/dashboard",
       content: null,
+      id: null,
     };
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      console.log("atualizou rota");
-    }
-  }
-
   updateContent() {
-    switch (this.state.currentPage) {
+    let currentPage = this.verifyRoute();
+
+    switch (currentPage) {
       case "/dashboard":
         this.setContent(<Dashboard />);
         break;
@@ -34,9 +33,22 @@ class Base extends Component {
       case "/owners":
         this.setContent(<OwnersList />);
         break;
+      case "/owners/update":
+        this.setContent(<CreateOwnerPage />);
+        break;
       default:
         this.setContent(<Dashboard />);
     }
+  }
+
+  verifyRoute() {
+    let currentPage = this.state.currentPage;
+
+    if (currentPage.includes("update")) {
+      currentPage = currentPage.replace(/\/update\/\d+/, "/update");
+    }
+
+    return currentPage;
   }
 
   setContent(component) {
@@ -65,4 +77,4 @@ class Base extends Component {
   };
 }
 
-export default Base;
+export default withRouter(Base);

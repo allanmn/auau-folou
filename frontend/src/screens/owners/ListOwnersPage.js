@@ -11,7 +11,7 @@ import {
   AppBar,
 } from "@mui/material";
 import ApiService from "../../services/api";
-import { showToastError } from "../../services/helper";
+import { showSuccess, showToastError } from "../../services/helper";
 
 import styles from "../../css/styles.js";
 import Loader from "../../components/Loader";
@@ -56,6 +56,8 @@ const OwnersPage = () => {
           );
 
           setLoader({ isOpen: false });
+
+          showSuccess("Proprietário removido com sucesso!");
         },
         (error) => {
           setLoader({ isOpen: false });
@@ -71,6 +73,10 @@ const OwnersPage = () => {
 
   const goToNew = () => {
     navigate("/owners/create");
+  };
+
+  const handleEdit = (ownerId) => {
+    navigate(`/owners/update/${ownerId}`);
   };
 
   return (
@@ -141,6 +147,7 @@ const OwnersPage = () => {
                   <Grid item xs={2}>
                     <Button
                       variant="contained"
+                      onClick={() => handleEdit(owner.id)}
                       style={{ ...styles.listItemButton, ...styles.grayBtn }}
                     >
                       EDITAR
