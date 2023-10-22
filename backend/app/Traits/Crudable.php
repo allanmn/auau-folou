@@ -77,7 +77,9 @@ Trait Crudable{
         try {
             DB::beginTransaction();
 
-            $this->model->delete($id);
+            $model = $this->model->findOrFail($id);
+
+            $model->delete();
 
             DB::commit();
         }
