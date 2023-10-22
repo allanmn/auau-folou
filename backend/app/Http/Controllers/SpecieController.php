@@ -48,7 +48,7 @@ class SpecieController extends Controller
     public function update(SpecieRequest $request, string $id)
     {
         $this->specie_service->update($request->toArray(),$id);
-        return response();
+        return response('',204);
     }
 
     /**
@@ -57,6 +57,6 @@ class SpecieController extends Controller
     public function destroy(string $id)
     {
         $this->specie_service->destroy($id);
-        return response();
+        return response('',204);
     }
 }

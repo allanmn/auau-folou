@@ -46,7 +46,7 @@ class OwnerController extends Controller
     public function update(OwnerRequest $request, string $id)
     {
         $this->owner_service->update($request->toArray(),$id);
-        return response();
+        return response('',204);
     }
 
     /**
@@ -55,6 +55,6 @@ class OwnerController extends Controller
     public function destroy(string $id)
     {
         $this->owner_service->destroy($id);
-        return response();
+        return response('',204);
     }
 }
