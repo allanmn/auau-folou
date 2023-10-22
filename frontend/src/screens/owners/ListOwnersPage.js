@@ -11,16 +11,20 @@ import {
   AppBar,
 } from "@mui/material";
 import ApiService from "../../services/api";
-import { useNavigate } from "react-router-dom";
 import { showToastError } from "../../services/helper";
 
 import styles from "../../css/styles.js";
+import Loader from "../../components/Loader";
+import { useNavigate } from "react-router-dom";
 
 const OwnersPage = () => {
   const [loading, setLoading] = useState(true);
   const [owners, setOwners] = useState([]);
+  const [loader, setLoader] = useState({
+    isOpen: false,
+  });
 
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -37,6 +41,37 @@ const OwnersPage = () => {
 
     fetchData();
   }, [navigate]);
+
+  const handleDelete = (owner) => {
+    const confirm = window.confirm(
+      "Tem certeza que deseja deletar esse proprietário?"
+    );
+
+    if (confirm) {
+      setLoader({ isOpen: true });
+      deleteOwner(owner.id).then(
+        (response) => {
+          setOwners((prevOwners) =>
+            prevOwners.filter((o) => o.id !== owner.id)
+          );
+
+          setLoader({ isOpen: false });
+        },
+        (error) => {
+          setLoader({ isOpen: false });
+          showToastError(error.message);
+        }
+      );
+    }
+  };
+
+  const deleteOwner = (ownerId) => {
+    return ApiService().remove(`/owners/${ownerId}`);
+  };
+
+  const goToNew = () => {
+    navigate("/owners/create");
+  };
 
   return (
     <div>
@@ -56,6 +91,7 @@ const OwnersPage = () => {
             color="primary"
             variant="contained"
             style={styles.listItemButton}
+            onClick={goToNew}
           >
             NOVO
           </Button>
@@ -114,6 +150,7 @@ const OwnersPage = () => {
                     <Button
                       variant="contained"
                       style={{ ...styles.listItemButton, ...styles.redBtn }}
+                      onClick={() => handleDelete(owner)}
                     >
                       EXCLUIR
                     </Button>
@@ -137,6 +174,7 @@ const OwnersPage = () => {
           </List>
         )}
       </Container>
+      <Loader open={loader.isOpen} />
     </div>
   );
 };

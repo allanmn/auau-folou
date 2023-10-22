@@ -43,7 +43,7 @@ const ApiService = (navigate) => {
       const response = await api.post(endpoint, data);
       return response.data;
     } catch (error) {
-      throw new Error(`Error creating resource: ${error.message}`);
+      throw error;
     }
   };
 
@@ -61,7 +61,7 @@ const ApiService = (navigate) => {
       const response = await api.delete(endpoint);
       return response.data;
     } catch (error) {
-      throw new Error(`Error deleting resource: ${error.message}`);
+      throw error;
     }
   };
 

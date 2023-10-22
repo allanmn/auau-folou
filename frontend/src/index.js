@@ -21,6 +21,12 @@ const router = createBrowserRouter(
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/dashboard" element={<Base key="dashboard" />} />
       <Route exact path="/owners" element={<Base key="owners" />} />
+      <Route
+        exact
+        path="/owners/create"
+        element={<Base key="owners/create" />}
+      />
+      <Route exact path="/owners/:id" element={<Base key="owners" />} />
       <Route exact path="/" element={<Navigate to="/attempt" />} />
     </Fragment>
   )
@@ -29,10 +35,8 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
-  <ToastContainer />
-  <React.StrictMode>
+    <ToastContainer />
     <RouterProvider router={router} />
-  </React.StrictMode>
   </>
 );
 

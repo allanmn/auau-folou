@@ -9,6 +9,7 @@ import {
 import { Dashboard, ExitToApp, People } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import styles from "../css/Sidebar.module.css";
+import logo from "../images/logo.svg"
 
 const Sidebar = () => {
   const handleLogout = () => {
@@ -33,7 +34,7 @@ const Sidebar = () => {
     >
       <div className={styles["sidebar-top"]}>
         <div className={styles.logo}>
-          <img src="assets/logo.svg" alt="Logo" />
+          <img src={logo} alt="Logo" />
         </div>
         <div className={styles["welcome-message"]}>
           <p>Bem vindo!</p>
