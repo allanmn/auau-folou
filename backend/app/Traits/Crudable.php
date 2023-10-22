@@ -59,7 +59,9 @@ Trait Crudable{
         try {
             DB::beginTransaction();
 
-            $this->model->update($data);
+            $model = $this->model->findOrFail($id);
+
+            $model->update($data);
 
             DB::commit();
         }
