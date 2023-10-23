@@ -16,8 +16,11 @@ return new class extends Migration
             $table->string("name",100);
             $table->string("phone",20);
             $table->string("email",100);
+            $table->string("email_verified_at",30);
             $table->string("CRMV",5);
             $table->string("specialty",100);
+            $table->string("password",100);
+            $table->string("remember_token",10);
             $table->softDeletes();
             $table->timestamps();
         });
