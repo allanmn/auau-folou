@@ -1,54 +1,40 @@
-import React from "react";
-
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AuthService from "./auth";
 
 const API_BASE_URL = "http://localhost:8000/api"; // Update with your API URL
 
-const ApiService = () => {
+const ApiService = (navigate) => {
   const api = axios.create({
     baseURL: API_BASE_URL,
   });
 
-  const navigate = useNavigate();
+  api.interceptors.request.use((config) => {
+    const token = AuthService().getToken();
 
-  useEffect(() => {
-    const requestInterceptor = api.interceptors.request.use((config) => {
-      const token = AuthService().getToken();
+    if (token) {
+      config.headers["Authorization"] = `Bearer ${token}`;
+    }
 
-      if (token) {
-        config.headers["Authorization"] = `Bearer ${token}`;
+    return config;
+  });
+
+  api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response && error.response.status === 401) {
+        AuthService.logout();
+        navigate("/login");
       }
-
-      return config;
-    });
-
-    const responseInterceptor = api.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        if (error.response && error.response.status === 401) {
-          AuthService.logout();
-          navigate("/login");
-        }
-        return Promise.reject(error);
-      }
-    );
-
-    // Cleanup interceptors on component unmount
-    return () => {
-      api.interceptors.request.eject(requestInterceptor);
-      api.interceptors.response.eject(responseInterceptor);
-    };
-  }, []); // Empty dependency array means this effect will only run once
+      return Promise.reject(error);
+    }
+  );
 
   const get = async (endpoint, params = {}) => {
     try {
       const response = await api.get(endpoint, { params });
       return response.data;
     } catch (error) {
-      throw new Error(`Error fetching data: ${error.message}`);
+      throw error;
     }
   };
 
@@ -57,7 +43,7 @@ const ApiService = () => {
       const response = await api.post(endpoint, data);
       return response.data;
     } catch (error) {
-      throw new Error(`Error creating resource: ${error.message}`);
+      throw error;
     }
   };
 
@@ -75,7 +61,7 @@ const ApiService = () => {
       const response = await api.delete(endpoint);
       return response.data;
     } catch (error) {
-      throw new Error(`Error deleting resource: ${error.message}`);
+      throw error;
     }
   };
 

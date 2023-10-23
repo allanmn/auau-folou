@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             OwnerSeeder::class,
             SpecieSeeder::class,
             RaceSeeder::class,
+            VetSeeder::class
         ]);
     }
 }
