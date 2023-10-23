@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\RaceController;
 use App\Http\Controllers\SpecieController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,5 +32,7 @@ Route::group([
 ],function ($router){
     Route::resource("species", SpecieController::class);
     Route::resource("owners", OwnerController::class);
+    Route::resource("races", RaceController::class);
+
 });
 
