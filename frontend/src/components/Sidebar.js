@@ -6,7 +6,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Dashboard, ExitToApp, People, Pets } from "@mui/icons-material";
+import { Dashboard, ExitToApp, Healing, People, Pets } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 
 import AuthService from "../services/auth";
@@ -58,6 +58,19 @@ const Sidebar = () => {
           <ListItemText
             className={styles["sidebar-list-item-text"]}
             primary="Dashboard"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/vets"
+        >
+          <ListItemIcon>
+            <Healing />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Veterinários"
           />
         </ListItemButton>
         <ListItemButton
