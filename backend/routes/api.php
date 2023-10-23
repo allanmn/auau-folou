@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\SpecieController;
+use App\Http\Controllers\VetController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,5 +32,8 @@ Route::group([
 ],function ($router){
     Route::resource("species", SpecieController::class);
     Route::resource("owners", OwnerController::class);
+    // Route::resource("vets", VetController::class);
 });
 
+// Deixei fora da autenticação pra testar
+Route::resource("vets", VetController::class);
