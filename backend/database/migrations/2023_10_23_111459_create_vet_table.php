@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string("specialty",100);
             $table->string("password",100);
             $table->string("remember_token",10);
+            $table->string("doc",14);
+            $table->string("address",100);
             $table->softDeletes();
             $table->timestamps();
         });
