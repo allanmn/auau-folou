@@ -4,6 +4,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\SpecieController;
 use App\Http\Controllers\VetController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\ServiceTypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,3 +39,5 @@ Route::group([
 
 // Deixei fora da autenticação pra testar
 Route::resource("vets", VetController::class);
+Route::resource("medicines", MedicineController::class);
+Route::resource("services", ServiceTypeController::class);
