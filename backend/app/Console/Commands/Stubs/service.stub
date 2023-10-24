@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\Model;
+use App\Traits\Crudable;
+
+class DummyService
+{
+
+    private Model $model;
+    use Crudable;
+
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
+}

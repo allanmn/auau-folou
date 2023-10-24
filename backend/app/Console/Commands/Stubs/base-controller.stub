@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\DummyRequest;
+use App\Services\DummyServiceClass;
+
+class DummyController extends Controller
+{
+    private DummyServiceClass $DummyService;
+
+    public function __construct(DummyServiceClass $DummyService)
+    {
+        $this->DummyService = $DummyService;
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            "DummyResponses" => $this->DummyService->get(),
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(DummyRequest $request)
+    {
+        $this->DummyService->store($request->toArray());
+        return response('',201);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        return response()->json([
+            "DummyResponse" => $this->DummyService->find($id)
+        ]);
+    }
+
+    public function update(DummyRequest $request, string $id)
+    {
+        $this->DummyService->update($request->toArray(),$id);
+        return response('',204);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $this->DummyService->destroy($id);
+        return response('',204);
+    }
+}
