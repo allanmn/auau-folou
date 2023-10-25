@@ -17,12 +17,15 @@ import ApiService from "../../services/api";
 import { showSuccess, showToastError } from "../../services/helper";
 import { useNavigate, useParams } from "react-router-dom";
 
-const CreateOwnerPage = () => {
-  const [ownerData, setOwnerData] = useState({
+const CreateVetPage = () => {
+  const [vetData, setVetData] = useState({
     name: "",
     phone: "",
     address: "",
     email: "",
+    CRMV: "",
+    specialty: "",
+    doc: "",
   });
 
   const [loader, setLoader] = useState({
@@ -35,27 +38,27 @@ const CreateOwnerPage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setOwnerData({ ...ownerData, [name]: value });
+    setVetData({ ...vetData, [name]: value });
   };
 
-  const handleSaveOwner = () => {
+  const handleSaveVet = () => {
     setLoader({ isOpen: true });
 
     if (id) {
-      updateOwner();
+      updateVet();
     } else {
-      createOwner();
+      createVet();
     }
   };
 
-  const createOwner = () => {
+  const createVet = () => {
     ApiService()
-      .post("/owners", ownerData)
+      .post("/vets", vetData)
       .then(
         (response) => {
           console.log(response);
-          showSuccess("Propritário cadastrado com sucesso!");
-          navigate("/owners");
+          showSuccess("Veterinário cadastrado com sucesso!");
+          navigate("/vets");
         },
         (error) => {
           setLoader({ isOpen: false });
@@ -64,14 +67,14 @@ const CreateOwnerPage = () => {
       );
   };
 
-  const updateOwner = () => {
+  const updateVet = () => {
     ApiService()
-      .put(`/owners/${id}`, ownerData)
+      .put(`/vets/${id}`, vetData)
       .then(
         (response) => {
           setLoader({ isOpen: false });
-          showSuccess("Propritário atualizado com sucesso!");
-          navigate("/owners");
+          showSuccess("Veterinário atualizado com sucesso!");
+          navigate("/vets");
         },
         (error) => {
           setLoader({ isOpen: false });
@@ -83,10 +86,10 @@ const CreateOwnerPage = () => {
   useEffect(() => {
     if (id) {
       ApiService()
-        .get(`/owners/${id}`)
+        .get(`/vets/${id}`)
         .then(
           (response) => {
-            setOwnerData(response.owner);
+            setVetData(response.vet);
           },
           (error) => {
             showToastError(error.message);
@@ -108,7 +111,9 @@ const CreateOwnerPage = () => {
             padding: "0 10px 0 10px",
           }}
         >
-          <Typography variant="h4">{id ? 'Editando ' : 'Nova '}proprietário</Typography>
+          <Typography variant="h4">
+            {id ? "Editando " : "NovO "}veterinário
+          </Typography>
         </Toolbar>
       </AppBar>
       <Container style={{ padding: "20px 20px" }}>
@@ -118,7 +123,7 @@ const CreateOwnerPage = () => {
               name="name"
               label="Nome"
               fullWidth
-              value={ownerData.name}
+              value={vetData.name}
               onChange={handleInputChange}
             />
           </Grid>
@@ -126,7 +131,7 @@ const CreateOwnerPage = () => {
             <InputMask
               mask="(99) 99999-9999"
               disabled={false}
-              value={ownerData.phone}
+              value={vetData.phone}
               name="phone"
               label="Telefone"
               maskChar=" "
@@ -140,7 +145,38 @@ const CreateOwnerPage = () => {
               name="email"
               label="E-mail"
               fullWidth
-              value={ownerData.email}
+              value={vetData.email}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              name="specialty"
+              label="Especialidade"
+              fullWidth
+              value={vetData.specialty}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <InputMask
+              mask="999.999.999-99"
+              disabled={false}
+              value={vetData.doc}
+              name="doc"
+              label="Documento (CPF)"
+              maskChar=" "
+              onChange={handleInputChange}
+            >
+              {(props) => <TextField fullWidth {...props} />}
+            </InputMask>
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              name="CRMV"
+              label="CRMV"
+              fullWidth
+              value={vetData.CRMV}
               onChange={handleInputChange}
             />
           </Grid>
@@ -149,7 +185,7 @@ const CreateOwnerPage = () => {
               name="address"
               label="Endereço"
               fullWidth
-              value={ownerData.address}
+              value={vetData.address}
               onChange={handleInputChange}
             />
           </Grid>
@@ -161,7 +197,7 @@ const CreateOwnerPage = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleSaveOwner}
+              onClick={handleSaveVet}
               style={{ ...styles.grayBtn, ...styles.listItemButton }}
             >
               SALVAR
@@ -174,4 +210,4 @@ const CreateOwnerPage = () => {
   );
 };
 
-export default CreateOwnerPage;
+export default CreateVetPage;

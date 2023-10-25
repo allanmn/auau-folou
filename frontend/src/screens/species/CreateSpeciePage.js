@@ -9,20 +9,15 @@ import {
   Grid,
 } from "@mui/material";
 
-import InputMask from "react-input-mask";
-
 import styles from "../../css/styles";
 import Loader from "../../components/Loader";
 import ApiService from "../../services/api";
 import { showSuccess, showToastError } from "../../services/helper";
 import { useNavigate, useParams } from "react-router-dom";
 
-const CreateOwnerPage = () => {
-  const [ownerData, setOwnerData] = useState({
+const CreateSpeciePage = () => {
+  const [specieData, setSpecieData] = useState({
     name: "",
-    phone: "",
-    address: "",
-    email: "",
   });
 
   const [loader, setLoader] = useState({
@@ -35,27 +30,26 @@ const CreateOwnerPage = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setOwnerData({ ...ownerData, [name]: value });
+    setSpecieData({ ...specieData, [name]: value });
   };
 
-  const handleSaveOwner = () => {
+  const handleSaveSpecie = () => {
     setLoader({ isOpen: true });
 
     if (id) {
-      updateOwner();
+      updateSpecie();
     } else {
-      createOwner();
+      createSpecie();
     }
   };
 
-  const createOwner = () => {
+  const createSpecie = () => {
     ApiService()
-      .post("/owners", ownerData)
+      .post("/species", specieData)
       .then(
         (response) => {
-          console.log(response);
-          showSuccess("Propritário cadastrado com sucesso!");
-          navigate("/owners");
+          showSuccess("Espécie cadastrada com sucesso!");
+          navigate("/species");
         },
         (error) => {
           setLoader({ isOpen: false });
@@ -64,14 +58,14 @@ const CreateOwnerPage = () => {
       );
   };
 
-  const updateOwner = () => {
+  const updateSpecie = () => {
     ApiService()
-      .put(`/owners/${id}`, ownerData)
+      .put(`/species/${id}`, specieData)
       .then(
         (response) => {
           setLoader({ isOpen: false });
-          showSuccess("Propritário atualizado com sucesso!");
-          navigate("/owners");
+          showSuccess("Espécie atualizadacom sucesso!");
+          navigate("/species");
         },
         (error) => {
           setLoader({ isOpen: false });
@@ -83,10 +77,10 @@ const CreateOwnerPage = () => {
   useEffect(() => {
     if (id) {
       ApiService()
-        .get(`/owners/${id}`)
+        .get(`/species/${id}`)
         .then(
           (response) => {
-            setOwnerData(response.owner);
+            setSpecieData(response.specie);
           },
           (error) => {
             showToastError(error.message);
@@ -108,48 +102,17 @@ const CreateOwnerPage = () => {
             padding: "0 10px 0 10px",
           }}
         >
-          <Typography variant="h4">{id ? 'Editando ' : 'Nova '}proprietário</Typography>
+          <Typography variant="h4">{id ? 'Editando ' : 'Nova '}espécie</Typography>
         </Toolbar>
       </AppBar>
       <Container style={{ padding: "20px 20px" }}>
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextField
               name="name"
               label="Nome"
               fullWidth
-              value={ownerData.name}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <InputMask
-              mask="(99) 99999-9999"
-              disabled={false}
-              value={ownerData.phone}
-              name="phone"
-              label="Telefone"
-              maskChar=" "
-              onChange={handleInputChange}
-            >
-              {(props) => <TextField fullWidth {...props} />}
-            </InputMask>
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="email"
-              label="E-mail"
-              fullWidth
-              value={ownerData.email}
-              onChange={handleInputChange}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              name="address"
-              label="Endereço"
-              fullWidth
-              value={ownerData.address}
+              value={specieData.name}
               onChange={handleInputChange}
             />
           </Grid>
@@ -161,7 +124,7 @@ const CreateOwnerPage = () => {
             <Button
               variant="contained"
               color="primary"
-              onClick={handleSaveOwner}
+              onClick={handleSaveSpecie}
               style={{ ...styles.grayBtn, ...styles.listItemButton }}
             >
               SALVAR
@@ -174,4 +137,4 @@ const CreateOwnerPage = () => {
   );
 };
 
-export default CreateOwnerPage;
+export default CreateSpeciePage;

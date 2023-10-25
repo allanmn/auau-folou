@@ -1,6 +1,6 @@
 services:
     app:
-        container_name: laravel
+        container_name: laravel-aafolou
         build:
             context: .
             dockerfile: Dockerfile
@@ -18,7 +18,7 @@ services:
         networks:
             - api-network
     nginx:
-        container_name: nginx
+        container_name: nginx-aafolou
         image: nginx:alpine
         restart: unless-stopped
         ports:
@@ -33,7 +33,7 @@ services:
 
     mysql:
         image: mariadb
-        container_name: mysql
+        container_name: mysql-aafolou
         user: mysql
         environment:
             MYSQL_DATABASE: ${DB_DATABASE}

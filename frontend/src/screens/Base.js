@@ -7,6 +7,10 @@ import OwnersList from "./owners/ListOwnersPage";
 import CreateOwnerPage from "./owners/CreateOwnerPage";
 
 import { withRouter } from "../components/WithRouter";
+import CreateSpeciePage from "./species/CreateSpeciePage";
+import SpeciesPage from "./species/ListSpeciesPage";
+import VetsPage from "./vets/ListVetsPage";
+import CreateVetPage from "./vets/CreateVetPage";
 
 class Base extends Component {
   constructor(props) {
@@ -35,6 +39,24 @@ class Base extends Component {
         break;
       case "/owners/update":
         this.setContent(<CreateOwnerPage />);
+        break;
+      case "/species/create":
+        this.setContent(<CreateSpeciePage />);
+        break;
+      case "/species":
+        this.setContent(<SpeciesPage />);
+        break;
+      case "/species/update":
+        this.setContent(<CreateSpeciePage />);
+        break;
+      case "/vets/create":
+        this.setContent(<CreateVetPage />);
+        break;
+      case "/vets":
+        this.setContent(<VetsPage />);
+        break;
+      case "/vets/update":
+        this.setContent(<CreateVetPage />);
         break;
       default:
         this.setContent(<Dashboard />);

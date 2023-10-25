@@ -20,7 +20,7 @@ const AttemptPage = () => {
     }, 3000);
     // Clear the timeout if the component is unmounted
     return () => clearTimeout(timeout);
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="attempt-container">

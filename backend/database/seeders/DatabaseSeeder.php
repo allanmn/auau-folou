@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             MedicineSeeder::class,
             ServiceTypeSeeder::class,
             SupplierSeeder::class
+            RaceSeeder::class,
+            VetSeeder::class
         ]);
     }
 }

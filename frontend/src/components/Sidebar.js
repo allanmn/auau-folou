@@ -6,15 +6,20 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Dashboard, ExitToApp, People } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Dashboard, ExitToApp, Healing, People, Pets } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
+
+import AuthService from "../services/auth";
+
 import styles from "../css/Sidebar.module.css";
-import logo from "../images/logo.svg"
+import logo from "../images/logo.svg";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    // Implement your logout logic here
-    console.log("Logout button clicked");
+    AuthService().removeToken();
+    navigate("/login");
   };
 
   return (
@@ -42,7 +47,11 @@ const Sidebar = () => {
       </div>
       ;
       <List>
-        <ListItemButton className={styles["sidebar-list-button"]} component={Link} to="/dashboard">
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/dashboard"
+        >
           <ListItemIcon>
             <Dashboard />
           </ListItemIcon>
@@ -51,7 +60,24 @@ const Sidebar = () => {
             primary="Dashboard"
           />
         </ListItemButton>
-      <ListItemButton className={styles["sidebar-list-button"]} component={Link} to="/owners">
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/vets"
+        >
+          <ListItemIcon>
+            <Healing />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Veterinários"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/owners"
+        >
           <ListItemIcon>
             <People />
           </ListItemIcon>
@@ -60,7 +86,23 @@ const Sidebar = () => {
             primary="Proprietários"
           />
         </ListItemButton>
-        <ListItemButton className={styles["sidebar-list-button"]} onClick={handleLogout}>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/species"
+        >
+          <ListItemIcon>
+            <Pets />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Espécies"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          onClick={handleLogout}
+        >
           <ListItemIcon>
             <ExitToApp />
           </ListItemIcon>
