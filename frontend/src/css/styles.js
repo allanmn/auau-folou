@@ -10,6 +10,10 @@ const styles = {
     color: "#000",
   },
   redBtn: { background: "#FF6262", color: "#fff" },
+  loadingSelect: {
+    position: "absolute",
+    zIndex: "9999"
+  }
 };
 
 export default styles;

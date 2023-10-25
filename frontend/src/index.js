@@ -31,6 +31,13 @@ const router = createBrowserRouter(
         path="/owners/update/:id"
         element={<Base key="owners/update/:id" />}
       />
+      <Route exact path="/races" element={<Base key="races" />} />
+      <Route exact path="/races/create" element={<Base key="races/create" />} />
+      <Route
+        exact
+        path="/races/update/:id"
+        element={<Base key="races/update/:id" />}
+      />
       <Route exact path="/vets" element={<Base key="vets" />} />
       <Route exact path="/vets/create" element={<Base key="vets/create" />} />
       <Route
