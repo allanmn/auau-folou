@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('animals', function (Blueprint $table) {
             $table->id();
+            $table->string('name',100);
+            $table->bigInteger('race_id',false,true);
+            $table->date('birth_date');
+            $table->bigInteger('owner_id',false,true);
+            $table->softDeletes();
+            $table->foreign('race_id')->references('id')->on('races');
+            $table->foreign('owner_id')->references('id')->on('owners');
             $table->timestamps();
         });
     }

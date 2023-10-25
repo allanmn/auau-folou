@@ -11,7 +11,7 @@ class AnimalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class AnimalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "required|string",
+            "birh_date" => "required|date",
+            "owner_id" => "required|integer",
+            "race_id" => "required|integer"
         ];
     }
 }

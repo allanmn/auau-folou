@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Animals\Animal;
+use App\Models\Animal;
 use App\Traits\Crudable;
 
 class AnimalService
