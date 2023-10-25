@@ -40,4 +40,4 @@ Route::group([
 // Deixei fora da autenticação pra testar
 Route::resource("vets", VetController::class);
 Route::resource("medicines", MedicineController::class);
-Route::resource("services", ServiceTypeController::class);
+Route::resource("service-types", ServiceTypeController::class);

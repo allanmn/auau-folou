@@ -7,11 +7,11 @@ use App\Services\ServiceTypeService;
 
 class ServiceTypeController extends Controller
 {
-    private ServiceTypeService $service_service;
+    private ServiceTypeService $service_type_service;
 
-    public function __construct(ServiceTypeService $service_service)
+    public function __construct(ServiceTypeService $service_type_service)
     {
-        $this->service_service = $service_service;
+        $this->service_type_service = $service_type_service;
     }
 
     /**
@@ -20,16 +20,16 @@ class ServiceTypeController extends Controller
     public function index(): \Illuminate\Http\JsonResponse
     {
         return response()->json([
-            "Services" => $this->service_service->get(),
+            "service-types" => $this->service_type_service->get(),
         ]);
     }
 
-    /**
+    /*
      * Store a newly created resource in storage.
      */
     public function store(ServiceTypeRequest $request)
     {
-        $this->service_service->store($request->toArray());
+        $this->service_type_service->store($request->toArray());
         return response('',201);
     }
 
@@ -39,13 +39,13 @@ class ServiceTypeController extends Controller
     public function show(string $id)
     {
         return response()->json([
-            "Service" => $this->service_service->find($id)
+            "service-type" => $this->service_type_service->find($id)
         ]);
     }
 
     public function update(ServiceTypeRequest $request, string $id)
     {
-        $this->Service_service->update($request->toArray(),$id);
+        $this->service_type_service->update($request->toArray(),$id);
         return response('',204);
     }
 
@@ -54,7 +54,7 @@ class ServiceTypeController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->service_service->destroy($id);
+        $this->service_type_service->destroy($id);
         return response('',204);
     }
 }

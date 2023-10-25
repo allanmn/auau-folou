@@ -24,7 +24,7 @@ class ServiceTypeRequest extends FormRequest
         return [
             "name" => "required|string",
             "description" => "required|string",
-            "price" => "required|string"
+            "price" => "required|decimal:2,4"
         ];
     }
 }
