@@ -18,6 +18,10 @@ class Owner extends Model
         "address"
     ];
 
+    protected $with = [
+        "animals"
+    ];
+
     public function animals(){
         return $this->hasMany(Animal::class);
     }
