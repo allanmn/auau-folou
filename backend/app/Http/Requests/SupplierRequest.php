@@ -26,7 +26,7 @@ class SupplierRequest extends FormRequest
             "phone" => "required|string",
             "email" => "required|string",
             "address" => "required|string",
-            "productType" => "required|string"
+            "product_type" => "required|string"
         ];
     }
 }

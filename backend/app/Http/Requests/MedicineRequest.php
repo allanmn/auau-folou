@@ -28,7 +28,7 @@ class MedicineRequest extends FormRequest
             "dosage" => "required|string",
             "expirationDate" => "required|string",
             "stockAvailable" => "required|integer",
-            "price" => "required|float",
+            "price" => "required|decimal:",
         ];
     }
 }
