@@ -2,16 +2,16 @@
 
 namespace App\Services;
 
-use App\Models\Package;
+use App\Models\Appointment;
 use App\Traits\Crudable;
 
-class PackageService
+class AppointmentService
 {
 
-    private Package $model;
+    private Appointment $model;
     use Crudable;
 
-    public function __construct(Package $model)
+    public function __construct(Appointment $model)
     {
         $this->model = $model;
     }
@@ -21,7 +21,11 @@ class PackageService
         try {
             DB::beginTransaction();
 
-            $this->model->create($data)->services()->sync($data['services']);
+            $model = $this->model->create($data);
+
+            if(is_null($model->package_id)){
+                $model->services()->sync($data['services']);
+            }
 
             DB::commit();
         }
