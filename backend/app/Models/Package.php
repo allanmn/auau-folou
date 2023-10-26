@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Owner extends Model
+class Package extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
         "name",
-        "phone",
-        "email",
-        "address"
+        "description",
+        "price"
     ];
 
-    public function animals(){
-        return $this->hasMany(Animal::class);
+    public function services(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Service::class);
     }
 }

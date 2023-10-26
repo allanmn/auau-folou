@@ -25,7 +25,7 @@ Trait Crudable{
 
             DB::commit();
         }
-        catch (\Exception $e){
+        catch (\Throwable $e){
             DB::rollBack();
             Throw $e;
         }
@@ -43,7 +43,7 @@ Trait Crudable{
 
             DB::commit();
         }
-        catch (\Exception $e){
+        catch (\Throwable $e){
             DB::rollBack();
             Throw $e;
         }
@@ -65,7 +65,7 @@ Trait Crudable{
 
             DB::commit();
         }
-        catch (\Exception $e){
+        catch (\Throwable $e){
             DB::rollBack();
             Throw $e;
         }
@@ -85,7 +85,7 @@ Trait Crudable{
 
             DB::commit();
         }
-        catch (\Exception $e){
+        catch (\Throwable $e){
             DB::rollBack();
             Throw $e;
         }

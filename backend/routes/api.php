@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AnimalController;
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\RaceController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SpecieController;
@@ -37,7 +39,7 @@ Route::group([
     "middleware" => 'jwt.auth'
 ],function ($router){
     Route::resource("species", SpecieController::class);
-    Route::resource("owners", OwnerController::class);
+//    Route::resource("owners", OwnerController::class);
     Route::resource("races", RaceController::class);
     // Route::resource("vets", VetController::class);
 //    Route::resource("animals", AnimalController::class);
@@ -45,9 +47,13 @@ Route::group([
 });
 
 // Deixei fora da autenticação pra testar
+Route::resource("owners", OwnerController::class);
+Route::get('owners/find-with-animals/{id}',[OwnerController::class,'findWithAnimals']);
 Route::resource("vets", VetController::class);
 Route::resource("medicines", MedicineController::class);
 Route::resource("service-types", ServiceTypeController::class);
 Route::resource("suppliers", SupplierController::class);
 Route::resource("animals", AnimalController::class);
 Route::resource("services", ServiceController::class);
+Route::resource("packages", PackageController::class);
+Route::resource("appointments", AppointmentController::class);
