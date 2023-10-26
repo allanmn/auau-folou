@@ -6,23 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Owner extends Model
+class Service extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
         "name",
-        "phone",
-        "email",
-        "address"
+        "description",
+        "price",
+        "service_type_id"
     ];
 
-    protected $with = [
-        "animals"
-    ];
-
-    public function animals(){
-        return $this->hasMany(Animal::class);
+    public function service_type(){
+        return $this->belongsTo(ServiceType::class);
     }
 }

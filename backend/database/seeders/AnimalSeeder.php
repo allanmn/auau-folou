@@ -2,16 +2,17 @@
 
 namespace Database\Seeders;
 
+use App\Models\Animal;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\ServiceType;
 
-class ServiceTypeSeeder extends Seeder
+class AnimalSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        ServiceType::factory()->count(10)->create();
+        Animal::factory()->count(10)->create();
     }
 }
