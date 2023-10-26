@@ -79,6 +79,10 @@ const OwnersPage = () => {
     navigate(`/owners/update/${ownerId}`);
   };
 
+  const viewAnimals = (owner) => {
+    navigate(`/owners/${owner.id}/animals`);
+  };
+
   return (
     <div>
       <AppBar
@@ -162,7 +166,19 @@ const OwnersPage = () => {
                       EXCLUIR
                     </Button>
                   </Grid>
+                  
+                  <Grid item xs={2}>
+                    <Button
+                      variant="contained"
+                      style={{ ...styles.listItemButton, ...styles.blueBtn }}
+                      onClick={() => viewAnimals(owner)}
+                    >
+                      VER ANIMAIS
+                    </Button>
+                  </Grid>
+
                 </Grid>
+
               </ListItem>
             ))}
             {!owners.length && (
