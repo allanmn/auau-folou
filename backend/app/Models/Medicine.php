@@ -13,11 +13,19 @@ class Medicine extends Model
 
     protected $fillable = [
         "name",
-        "supplier",
+        "supplier_id",
         "description",
         "dosage",
         "expirationDate",
         "stockAvailable",
         "price"
     ];
+
+    protected $with = [
+        "supplier"
+    ];
+
+    public function supplier() {
+        return $this->belongsTo(Supplier::class);
+    }
 }
