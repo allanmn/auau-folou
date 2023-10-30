@@ -18,4 +18,12 @@ class Supplier extends Model
         "address",
         "product_type"
     ];
+
+    protected $with = [
+        "medicine"
+    ];
+
+    public function medicine() {
+        return $this->hasOne(Medicine::class);
+    }
 }
