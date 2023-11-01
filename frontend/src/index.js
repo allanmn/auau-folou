@@ -45,6 +45,13 @@ const router = createBrowserRouter(
         path="/vets/update/:id"
         element={<Base key="vets/update/:id" />}
       />
+      <Route exact path="/animals" element={<Base key="animals" />} />
+      <Route exact path="/animals/create" element={<Base key="animals/create" />} />
+      <Route
+        exact
+        path="/animals/update/:id"
+        element={<Base key="animals/update/:id" />}
+      />
       <Route exact path="/species" element={<Base key="species" />} />
       <Route
         exact
