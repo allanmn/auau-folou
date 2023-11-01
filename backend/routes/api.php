@@ -38,9 +38,9 @@ Route::group([
 Route::group([
     "middleware" => 'jwt.auth'
 ],function ($router){
-    Route::resource("species", SpecieController::class);
+//    Route::resource("species", SpecieController::class);
 //    Route::resource("owners", OwnerController::class);
-    Route::resource("races", RaceController::class);
+//    Route::resource("races", RaceController::class);
     // Route::resource("vets", VetController::class);
 //    Route::resource("animals", AnimalController::class);
 
@@ -48,7 +48,9 @@ Route::group([
 
 // Deixei fora da autenticação pra testar
 Route::resource("owners", OwnerController::class);
-Route::get('owners/find-with-animals/{id}',[OwnerController::class,'findWithAnimals']);
+Route::resource("species", SpecieController::class);
+Route::resource("races", RaceController::class);
+Route::get('races-by-specie/{specie_id}',[RaceController::class,'showRacesBySpecie']);
 Route::resource("vets", VetController::class);
 Route::resource("medicines", MedicineController::class);
 Route::resource("service-types", ServiceTypeController::class);

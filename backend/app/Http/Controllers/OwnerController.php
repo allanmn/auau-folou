@@ -43,13 +43,6 @@ class OwnerController extends Controller
         ]);
     }
 
-    public function findWithAnimals(string $id)
-    {
-        return response()->json([
-            "owner" => $this->owner_service->findWithAnimals($id)
-        ]);
-    }
-
     public function update(OwnerRequest $request, string $id)
     {
         $this->owner_service->update($request->toArray(),$id);

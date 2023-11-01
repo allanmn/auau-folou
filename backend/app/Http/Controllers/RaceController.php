@@ -7,11 +7,11 @@ use App\Services\RaceService;
 
 class RaceController extends Controller
 {
-    private RaceService $owner_service;
+    private RaceService $race_service;
 
-    public function __construct(RaceService $owner_service)
+    public function __construct(RaceService $race_service)
     {
-        $this->owner_service = $owner_service;
+        $this->race_service = $race_service;
     }
 
     /**
@@ -20,7 +20,7 @@ class RaceController extends Controller
     public function index(): \Illuminate\Http\JsonResponse
     {
         return response()->json([
-            "races" => $this->owner_service->get(),
+            "races" => $this->race_service->get(),
         ]);
     }
 
@@ -29,7 +29,7 @@ class RaceController extends Controller
      */
     public function store(RaceRequest $request)
     {
-        $this->owner_service->store($request->toArray());
+        $this->race_service->store($request->toArray());
         return response('',201);
     }
 
@@ -39,14 +39,22 @@ class RaceController extends Controller
     public function show(string $id)
     {
         return response()->json([
-            "race" => $this->owner_service->find($id)
+            "race" => $this->race_service->find($id)
         ]);
     }
 
     public function update(RaceRequest $request, string $id)
     {
-        $this->owner_service->update($request->toArray(),$id);
+        $this->race_service->update($request->toArray(),$id);
         return response('',204);
+    }
+
+
+    public function showRacesBySpecie(string $specie_id)
+    {
+        return response()->json([
+            "specie" => $this->race_service->findRacesBySpecie($specie_id)
+        ]);
     }
 
     /**
@@ -54,7 +62,7 @@ class RaceController extends Controller
      */
     public function destroy(string $id)
     {
-        $this->owner_service->destroy($id);
+        $this->race_service->destroy($id);
         return response('',204);
     }
 }
