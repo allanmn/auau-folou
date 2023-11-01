@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Specie;
 use App\Traits\Crudable;
+use Illuminate\Support\Facades\DB;
 
 class SpecieService
 {
@@ -15,4 +16,5 @@ class SpecieService
     {
         $this->model = $model;
     }
+
 }

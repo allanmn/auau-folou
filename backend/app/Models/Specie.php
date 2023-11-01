@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Specie extends Model
@@ -14,4 +15,9 @@ class Specie extends Model
     protected $fillable = [
         "name",
     ];
+
+    public function races(): HasMany
+    {
+        return $this->hasMany(Race::class);
+    }
 }
