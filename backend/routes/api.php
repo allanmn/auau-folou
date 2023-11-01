@@ -48,7 +48,6 @@ Route::group([
 
 // Deixei fora da autenticação pra testar
 Route::resource("owners", OwnerController::class);
-Route::get('owners/find-with-animals/{id}',[OwnerController::class,'findWithAnimals']);
 Route::resource("vets", VetController::class);
 Route::resource("medicines", MedicineController::class);
 Route::resource("service-types", ServiceTypeController::class);

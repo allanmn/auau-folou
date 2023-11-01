@@ -19,7 +19,6 @@ class Animal extends Model
 
     protected $with = [
         "race",
-        "owner"
     ];
 
     public function race(){

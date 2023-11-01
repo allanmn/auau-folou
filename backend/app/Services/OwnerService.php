@@ -18,7 +18,12 @@ class OwnerService
         $this->model = $model;
     }
 
-    public function findWithAnimals($id)
+    public function get()
+    {
+        return $this->model->with('animals')->get();
+    }
+
+    public function find(string $id)
     {
         try {
             DB::beginTransaction();
@@ -26,11 +31,13 @@ class OwnerService
             $model = $this->model->with('animals')->findOrFail($id);
 
             DB::commit();
-        } catch (\Throwable $e) {
+        }
+        catch (\Throwable $e){
             DB::rollBack();
-            throw $e;
+            Throw $e;
         }
 
         return $model;
     }
+
 }
