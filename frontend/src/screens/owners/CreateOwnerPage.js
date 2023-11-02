@@ -153,6 +153,25 @@ const CreateOwnerPage = () => {
               onChange={handleInputChange}
             />
           </Grid>
+
+
+          <Grid item xs={12}>
+            <Typography variant="h6">Animais do Proprietário:</Typography>
+          </Grid>
+
+          <Grid item xs={12} >
+            <Typography variant="body1">Nome do bixo</Typography>
+            <Grid item xs={4}>
+              <Button
+                variant="contained"
+                color="primary"
+
+              >
+                Ver Detalhes
+              </Button>
+            </Grid>
+          </Grid>
+
           <Grid
             style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
             item
