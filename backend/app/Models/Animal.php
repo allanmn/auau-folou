@@ -10,21 +10,24 @@ class Animal extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected  $fillable = [
-         "name",
-         "owner_id",
-         "race_id",
-         "birth_date"
+    protected $fillable = [
+        "name",
+        "owner_id",
+        "race_id",
+        "birth_date",
     ];
 
     protected $with = [
         "race",
+        "owner",
     ];
 
-    public function race(){
+    public function race()
+    {
         return $this->belongsTo(Race::class);
     }
-    public function owner(){
+    public function owner()
+    {
         return $this->belongsTo(Owner::class);
     }
 }

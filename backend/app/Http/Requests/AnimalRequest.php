@@ -23,7 +23,7 @@ class AnimalRequest extends FormRequest
     {
         return [
             "name" => "required|string",
-            "birh_date" => "required|date",
+            "birth_date" => "required|string",
             "owner_id" => "required|integer",
             "race_id" => "required|integer"
         ];

@@ -14,6 +14,10 @@ import Login from "./screens/Login";
 import Base from "./screens/Base";
 import { ToastContainer } from "react-toastify";
 
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import br from "date-fns/locale/pt-BR";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Fragment>
@@ -46,7 +50,11 @@ const router = createBrowserRouter(
         element={<Base key="vets/update/:id" />}
       />
       <Route exact path="/animals" element={<Base key="animals" />} />
-      <Route exact path="/animals/create" element={<Base key="animals/create" />} />
+      <Route
+        exact
+        path="/animals/create"
+        element={<Base key="animals/create" />}
+      />
       <Route
         exact
         path="/animals/update/:id"
@@ -70,10 +78,10 @@ const router = createBrowserRouter(
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <>
+  <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={br}>
     <ToastContainer />
     <RouterProvider router={router} />
-  </>
+  </LocalizationProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function

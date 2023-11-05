@@ -53,7 +53,7 @@ class RaceController extends Controller
     public function showRacesBySpecie(string $specie_id)
     {
         return response()->json([
-            "specie" => $this->race_service->findRacesBySpecie($specie_id)
+            "races" => $this->race_service->findRacesBySpecie($specie_id)
         ]);
     }
 

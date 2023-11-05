@@ -22,7 +22,7 @@ class RaceService
         try {
             DB::beginTransaction();
 
-            $models = $this->model->where('specie_id',$specie_id)->get();
+            $models = $this->model->where('specie_id', $specie_id)->get();
 
             DB::commit();
         }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Container,
   Typography,
@@ -20,11 +20,14 @@ import {
   showWarning,
 } from "../../services/helper";
 import { useNavigate, useParams } from "react-router-dom";
+import { DateField } from "@mui/x-date-pickers";
 
 const CreateAnimalPage = () => {
   const [animalData, setAnimalData] = useState({
     name: "",
+    owner_id: null,
     owner: {
+      id: null,
       name: "",
     },
     race: {
@@ -32,23 +35,29 @@ const CreateAnimalPage = () => {
       name: "",
       specie_id: "",
     },
+    race_id: null,
     birth_date: "",
   });
 
-  const [gotAnimal, setGotAnimal] = useState(false);
-  const [gotSpecies, setGotSpecies] = useState(false);
-  const [gotRaces, setGotRaces] = useState(false);
+  const prevAnimalData = usePrevious({ animalData });
 
   const [isLoadingSpecies, setIsLoadingSpecies] = useState(true);
   const [isLoadingRaces, setIsLoadingRaces] = useState(true);
+  const [isLoadingOwners, setIsLoadingOwners] = useState(true);
 
   const [species, setSpecies] = useState([]);
   const [races, setRaces] = useState([]);
+
+  const [owners, setOwners] = useState([]);
+
+  const [selectedDate, setSelectedDate] = useState(null);
 
   const [selectedSpecie, setSelectedSpecie] = useState({
     id: null,
     name: "",
   });
+
+  const prevSpecies = usePrevious({ species });
 
   const [loader, setLoader] = useState({
     isOpen: false,
@@ -65,6 +74,19 @@ const CreateAnimalPage = () => {
 
   const handleSaveAnimal = () => {
     setLoader({ isOpen: true });
+
+    if (selectedDate) {
+      let month = `${selectedDate.getMonth() + 1}`;
+      if (month.length === 1) {
+        month = `0${month}`;
+      }
+
+      let formated = `${selectedDate.getFullYear()}-${month}-${selectedDate.getDate()}`;
+
+      animalData.birth_date = formated;
+    }
+
+    console.log(animalData);
 
     if (id) {
       updateAnimal();
@@ -94,7 +116,7 @@ const CreateAnimalPage = () => {
       .then(
         (response) => {
           setLoader({ isOpen: false });
-          showSuccess("Propritário atualizado com sucesso!");
+          showSuccess("Animal atualizado com sucesso!");
           navigate("/animals");
         },
         (error) => {
@@ -104,22 +126,106 @@ const CreateAnimalPage = () => {
       );
   };
 
+  function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current;
+  }
+
   useEffect(() => {
-    if (id && !gotAnimal) {
+    if (
+      prevAnimalData &&
+      prevAnimalData.animalData &&
+      prevAnimalData.animalData.race &&
+      prevAnimalData.animalData.race.specie_id !== animalData.race.specie_id
+    ) {
+      getSpecies();
+    }
+
+    if (
+      prevAnimalData &&
+      prevAnimalData.animalData &&
+      prevAnimalData.animalData.birth_date !== animalData.birth_date
+    ) {
+      const dateString = animalData.birth_date;
+
+      const dateParts = dateString.split("-");
+
+      const year = parseInt(dateParts[0], 10);
+      const month = parseInt(dateParts[1], 10) - 1;
+      const day = parseInt(dateParts[2], 10);
+      const dateObject = new Date(year, month, day);
+
+      setSelectedDate(dateObject);
+    }
+
+    if (
+      prevSpecies &&
+      prevSpecies.species &&
+      prevSpecies.species.length !== species.length
+    ) {
+      if (
+        animalData &&
+        animalData.id &&
+        animalData.id !== "" &&
+        animalData.race
+      ) {
+        let s = species.find((s) => s.id === animalData.race.specie_id);
+        if (s) {
+          setSelectedSpecie({
+            ...selectedSpecie,
+            name: s.name,
+            id: s.id,
+          });
+        }
+      }
+    }
+    function getRaces() {
+      ApiService()
+        .get(`races-by-specie/${selectedSpecie.id}`)
+        .then(
+          (response) => {
+            setRaces(response.races);
+            setIsLoadingRaces(false);
+          },
+          (error) => {
+            showToastError(error);
+          }
+        );
+    }
+
+    function getSpecies() {
+      ApiService()
+        .get("/species")
+        .then(
+          (res) => {
+            setSpecies(res.species);
+            setIsLoadingSpecies(false);
+          },
+          (error) => {
+            showToastError(error.message);
+          }
+        );
+    }
+  }, [animalData, species]);
+
+  useEffect(() => {
+    if (id) {
       getAnimal();
     } else {
       getSpecies();
     }
 
+    getOwners();
+
     function getAnimal() {
-      if (gotAnimal) return;
       ApiService()
         .get(`/animals/${id}`)
         .then(
           (response) => {
             setAnimalData(response.animal);
-            getSpecies();
-            setGotAnimal(true);
           },
           (error) => {
             showToastError(error.message);
@@ -127,12 +233,21 @@ const CreateAnimalPage = () => {
         );
     }
 
-    function getRaces() {
-      if (gotRaces) return;
+    function getOwners() {
+      ApiService()
+        .get("/owners")
+        .then(
+          (response) => {
+            setOwners(response.owners);
+            setIsLoadingOwners(false);
+          },
+          (error) => {
+            showToastError(error.message);
+          }
+        );
     }
 
     function getSpecies() {
-      if (gotSpecies) return;
       ApiService()
         .get("/species")
         .then(
@@ -152,7 +267,6 @@ const CreateAnimalPage = () => {
                   id: s.id,
                 });
               }
-              setGotSpecies(true);
             }
             setIsLoadingSpecies(false);
           },
@@ -163,6 +277,26 @@ const CreateAnimalPage = () => {
     }
   }, [id]);
 
+  useEffect(() => {
+    const getRaces = () => {
+      ApiService()
+        .get(`races-by-specie/${selectedSpecie.id}`)
+        .then(
+          (response) => {
+            setRaces(response.races);
+            setIsLoadingRaces(false);
+          },
+          (error) => {
+            showToastError(error);
+          }
+        );
+    };
+
+    if (selectedSpecie && selectedSpecie.id && selectedSpecie.id !== "") {
+      getRaces();
+    }
+  }, [selectedSpecie]);
+
   const handleChangeSpecies = (event) => {
     setSelectedSpecie(species.find((s) => s.id === event.target.value));
   };
@@ -171,7 +305,20 @@ const CreateAnimalPage = () => {
     setAnimalData({
       ...animalData,
       race: races.find((r) => r.id === event.target.value),
+      race_id: event.target.value,
     });
+  };
+
+  const handleChangeOwner = (event) => {
+    setAnimalData({
+      ...animalData,
+      owner: owners.find((o) => o.id === event.target.value),
+      owner_id: event.target.value,
+    });
+  };
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
   };
 
   const clickRaces = (event) => {
@@ -209,7 +356,7 @@ const CreateAnimalPage = () => {
               onChange={handleInputChange}
             />
           </Grid>
-          <Grid item xs={6} style={{ position: 'relative' }}>
+          <Grid item xs={6} style={{ position: "relative" }}>
             <TextField
               name="specie"
               label="Espécie"
@@ -232,7 +379,7 @@ const CreateAnimalPage = () => {
               />
             )}
           </Grid>
-          <Grid item xs={6} style={{ position: 'relative' }}>
+          <Grid item xs={6} style={{ position: "relative" }}>
             <div onClick={clickRaces}>
               <TextField
                 name="race"
@@ -272,6 +419,39 @@ const CreateAnimalPage = () => {
                 style={{ position: "absolute", right: 30, top: 35 }}
               />
             )}
+          </Grid>
+          <Grid item xs={6} style={{ position: "relative" }}>
+            <TextField
+              name="owner"
+              label="Dono"
+              fullWidth
+              value={animalData?.owner?.id ?? ""}
+              onChange={handleChangeOwner}
+              disabled={isLoadingOwners}
+              select={!isLoadingOwners}
+            >
+              {owners.map((owner) => (
+                <MenuItem key={owner.id} value={owner.id}>
+                  {owner.name}
+                </MenuItem>
+              ))}
+            </TextField>
+            {isLoadingOwners && (
+              <CircularProgress
+                size={20}
+                style={{ position: "absolute", right: 30, top: 35 }}
+              />
+            )}
+          </Grid>
+          <Grid item xs={6}>
+            <DateField
+              name="birth_date"
+              label="Data de nascimento"
+              value={selectedDate}
+              fullWidth
+              shouldRespectLeadingZeros
+              onChange={handleDateChange}
+            />
           </Grid>
           <Grid
             style={{ display: "flex", justifyContent: "center", marginTop: 10 }}
