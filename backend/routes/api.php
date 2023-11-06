@@ -59,3 +59,5 @@ Route::resource("animals", AnimalController::class);
 Route::resource("services", ServiceController::class);
 Route::resource("packages", PackageController::class);
 Route::resource("appointments", AppointmentController::class);
+Route::get('by-day-appointments',[AppointmentController::class,'getByDayAppointments']);
+
