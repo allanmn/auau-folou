@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class MedicineFactory extends Factory
     {
         return [
             'name' => 'Dipiroca',
-            'supplier' => 'Fazedor de dipiroca',
+            'supplier_id' => Supplier::factory(),
             'description' => 'O melhor remedio para dor',
             'dosage' => '30ui',
             'expirationDate' => '30/05/2025',

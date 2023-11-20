@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->string("name",100);
-            $table->string("supplier",100);
+            $table->bigInteger("supplier_id",false,true);
             $table->string("description",200);
             $table->string("dosage",5);
             $table->string("expirationDate",10);
             $table->integer("stockAvailable");
             $table->float("price", 8, 2);
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->softDeletes();
             $table->timestamps();
         });
