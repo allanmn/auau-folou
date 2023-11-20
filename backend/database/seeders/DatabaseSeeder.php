@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Services\ServiceService;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,9 +19,13 @@ class DatabaseSeeder extends Seeder
             VetSeeder::class,
             MedicineSeeder::class,
             ServiceTypeSeeder::class,
-            SupplierSeeder::class
+            SupplierSeeder::class,
             RaceSeeder::class,
-            VetSeeder::class
+            VetSeeder::class,
+            AnimalSeeder::class,
+            ServiceSeeder::class,
+            PackageSeeder::class,
+            AppointmentSeeder::class
         ]);
     }
 }

@@ -40,7 +40,7 @@ class MakeService extends GeneratorCommand
         $stub = parent::replaceClass($stub, $name);
         $model_name = explode('Service',$this->argument('name'))[0];
         $stub = str_replace('DummyService', $this->argument('name'), $stub);
-        return str_replace('Model', $model_name, $stub);
+        return preg_replace('/\bModel\b/u', $model_name, $stub);
     }
 
     /**

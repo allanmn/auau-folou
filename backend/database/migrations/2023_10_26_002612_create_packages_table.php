@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('owners', function (Blueprint $table) {
+        Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->string("name",100);
-            $table->string("email",100);
-            $table->string("address",300);
-            $table->string("phone",20);
+            $table->string("name",50);
+            $table->text('description');
+            $table->decimal('price');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -27,7 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('animals');
-        Schema::dropIfExists('owners');
+        Schema::dropIfExists('package_service');
+        Schema::dropIfExists('packages');
     }
 };

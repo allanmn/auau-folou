@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('owners', function (Blueprint $table) {
+        Schema::create('package_service', function (Blueprint $table) {
             $table->id();
-            $table->string("name",100);
-            $table->string("email",100);
-            $table->string("address",300);
-            $table->string("phone",20);
-            $table->softDeletes();
-            $table->timestamps();
+            $table->bigInteger("service_id",false,true);
+            $table->bigInteger('package_id',false,true);
+            $table->foreign('service_id')->references('id')->on('services');
+            $table->foreign('package_id')->references('id')->on('packages');
         });
     }
 
@@ -27,7 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('animals');
-        Schema::dropIfExists('owners');
+        Schema::dropIfExists('package_service');
     }
 };
