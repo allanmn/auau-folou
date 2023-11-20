@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('races', function (Blueprint $table) {
-            $table->id();
-            $table->string('name',50);
-            $table->bigInteger('specie_id',false,true);
-            $table->foreign('specie_id')->references('id')->on('species');
-            $table->timestamps();
+        Schema::table('medicines', function($table) {
+            $table->dropColumn('supplier');
+            $table->dropColumn('specie_id');
+            $table->bigInteger('supplier_id',false,true);
         });
     }
 
@@ -25,6 +23,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('races');
+        Schema::table('medicines', function($table) {
+            $table->dropColumn('supplier_id');
+            $table->string('supplier', 100);
+        });
     }
 };
