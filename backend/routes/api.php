@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnimalController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AppointmentStatusController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PackageController;
@@ -59,5 +60,6 @@ Route::resource("animals", AnimalController::class);
 Route::resource("services", ServiceController::class);
 Route::resource("packages", PackageController::class);
 Route::resource("appointments", AppointmentController::class);
+Route::resource("appointments-statuses", AppointmentStatusController::class);
 Route::get('by-day-appointments',[AppointmentController::class,'getByDayAppointments']);
 
