@@ -20,7 +20,7 @@ class AppointmentStatusController extends Controller
     public function index(): \Illuminate\Http\JsonResponse
     {
         return response()->json([
-            "appointment_statuss" => $this->appointment_status_service->get(),
+            "appointment_statuses" => $this->appointment_status_service->get(),
         ]);
     }
 

@@ -15,6 +15,8 @@ import CreateRacePage from "./races/CreateRacePage";
 import RacesPage from "./races/ListRacesPage";
 import AnimalsPage from "./animals/ListAnimalsPage";
 import CreateAnimalPage from "./animals/CreateAnimalPage";
+import AppointmentsPage from "./schedule/ListAppointmentsPage";
+import CreateAppointmentPage from "./schedule/CreateAppointmentPage";
 
 class Base extends Component {
   constructor(props) {
@@ -79,6 +81,15 @@ class Base extends Component {
         break;
       case "/races/update":
         this.setContent(<CreateRacePage />);
+        break;
+      case "/appointments/create":
+        this.setContent(<CreateAppointmentPage />);
+        break;
+      case "/appointments":
+        this.setContent(<AppointmentsPage />);
+        break;
+      case "/appointments/update":
+        this.setContent(<CreateAppointmentPage />);
         break;
       default:
         this.setContent(<Dashboard />);

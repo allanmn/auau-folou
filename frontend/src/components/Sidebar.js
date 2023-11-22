@@ -7,6 +7,7 @@ import {
   ListItemText,
 } from "@mui/material";
 import {
+  CalendarMonth,
   Dashboard,
   ExitToApp,
   Healing,
@@ -90,6 +91,19 @@ const Sidebar = () => {
           <ListItemText
             className={styles["sidebar-list-item-text"]}
             primary="Animais"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/appointments"
+        >
+          <ListItemIcon>
+            <CalendarMonth />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Agendamentos"
           />
         </ListItemButton>
         <ListItemButton

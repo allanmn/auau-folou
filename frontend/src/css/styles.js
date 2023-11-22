@@ -1,3 +1,5 @@
+import { createTheme } from "@mui/material";
+
 const styles = {
   listItemButton: {
     boxShadow: "none",
@@ -12,8 +14,8 @@ const styles = {
   redBtn: { background: "#FF6262", color: "#fff" },
   loadingSelect: {
     position: "absolute",
-    zIndex: "9999"
-  }
+    zIndex: "9999",
+  },
 };
 
 export default styles;
