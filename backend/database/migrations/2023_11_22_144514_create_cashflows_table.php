@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('cashflows', function (Blueprint $table) {
             $table->id();
-            $table->string("comment",100);
+            $table->string("comment", 100);
             $table->timestamp("due_date");
             $table->decimal('value');
             $table->boolean('flow');
-            $table->timestamp("paid_at");
+            $table->timestamp("paid_at")->nullable();
             $table->timestamps();
         });
     }

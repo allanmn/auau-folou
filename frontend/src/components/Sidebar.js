@@ -11,6 +11,7 @@ import {
   Dashboard,
   ExitToApp,
   Healing,
+  LocalShipping,
   People,
   Pets,
 } from "@mui/icons-material";
@@ -130,6 +131,19 @@ const Sidebar = () => {
           <ListItemText
             className={styles["sidebar-list-item-text"]}
             primary="Espécies"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/providers"
+        >
+          <ListItemIcon>
+            <LocalShipping />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Fornecedores"
           />
         </ListItemButton>
         <ListItemButton

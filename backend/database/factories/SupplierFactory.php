@@ -18,10 +18,12 @@ class SupplierFactory extends Factory
     {
         return [
             "name" => $this->faker->name(),
+            "social_name" => $this->faker->name(),
+            "doc" => $this->faker->unique()->numerify('##.###.###/####-##'),
             "phone" => $this->faker->phoneNumber(),
             "email" => $this->faker->email(),
-            "address"=> $this->faker->address(),
-            "product_type"=> 'Coleira'
+            "address" => $this->faker->address(),
+            "product_type" => 'Coleira',
         ];
     }
 }

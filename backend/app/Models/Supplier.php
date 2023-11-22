@@ -15,11 +15,14 @@ class Supplier extends Model
         "name",
         "phone",
         "email",
+        "social_name",
         "address",
-        "product_type"
+        "product_type",
+        "doc",
     ];
 
-    public function medicine() {
+    public function medicine()
+    {
         return $this->hasOne(Medicine::class);
     }
 }
