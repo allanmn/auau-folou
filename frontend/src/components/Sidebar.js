@@ -82,6 +82,19 @@ const Sidebar = () => {
         <ListItemButton
           className={styles["sidebar-list-button"]}
           component={Link}
+          to="/animals"
+        >
+          <ListItemIcon>
+            <Pets />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Animais"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
           to="/owners"
         >
           <ListItemIcon>

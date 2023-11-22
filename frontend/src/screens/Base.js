@@ -13,6 +13,8 @@ import VetsPage from "./vets/ListVetsPage";
 import CreateVetPage from "./vets/CreateVetPage";
 import CreateRacePage from "./races/CreateRacePage";
 import RacesPage from "./races/ListRacesPage";
+import AnimalsPage from "./animals/ListAnimalsPage";
+import CreateAnimalPage from "./animals/CreateAnimalPage";
 
 class Base extends Component {
   constructor(props) {
@@ -59,6 +61,15 @@ class Base extends Component {
         break;
       case "/vets/update":
         this.setContent(<CreateVetPage />);
+        break;
+      case "/animals/create":
+        this.setContent(<CreateAnimalPage />);
+        break;
+      case "/animals":
+        this.setContent(<AnimalsPage />);
+        break;
+      case "/animals/update":
+        this.setContent(<CreateAnimalPage />);
         break;
       case "/races/create":
         this.setContent(<CreateRacePage />);

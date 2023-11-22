@@ -15,4 +15,11 @@ class SupplierService
     {
         $this->model = $model;
     }
+
+    public function get()
+    {
+        return $this->model->with('medicine')->get();
+    }
+
+
 }
