@@ -25,7 +25,8 @@ class DatabaseSeeder extends Seeder
             AnimalSeeder::class,
             ServiceSeeder::class,
             PackageSeeder::class,
-            AppointmentSeeder::class
+            AppointmentSeeder::class,
+            CashflowSeeder::class,
         ]);
     }
 }
