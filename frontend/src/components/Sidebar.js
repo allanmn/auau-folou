@@ -14,6 +14,7 @@ import {
   LocalShipping,
   People,
   Pets,
+  Vaccines,
 } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -144,6 +145,19 @@ const Sidebar = () => {
           <ListItemText
             className={styles["sidebar-list-item-text"]}
             primary="Fornecedores"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/medicines"
+        >
+          <ListItemIcon>
+            <Vaccines />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Medicamentos"
           />
         </ListItemButton>
         <ListItemButton

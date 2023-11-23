@@ -93,6 +93,17 @@ const router = createBrowserRouter(
         path="/providers/update/:id"
         element={<Base key="providers/update/:id" />}
       />
+      <Route exact path="/medicines" element={<Base key="medicines" />} />
+      <Route
+        exact
+        path="/medicines/create"
+        element={<Base key="medicines/create" />}
+      />
+      <Route
+        exact
+        path="/medicines/update/:id"
+        element={<Base key="medicines/update/:id" />}
+      />
       <Route exact path="/" element={<Navigate to="/attempt" />} />
     </Fragment>
   )
