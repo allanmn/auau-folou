@@ -9,11 +9,13 @@ class AppointmentService
 {
 
     private Appointment $model;
+    private CashflowService $cashflow_service;
     use Crudable;
 
-    public function __construct(Appointment $model)
+    public function __construct(Appointment $model,CashflowService $cashflow_service)
     {
         $this->model = $model;
+        $this->cashflow_service = $cashflow_service;
     }
 
     public function store(array $data)
@@ -26,6 +28,16 @@ class AppointmentService
             if(is_null($model->package_id)){
                 $model->services()->sync($data['services']);
             }
+
+            $related_cashflow =[
+                "comment" => "Lançamento referente a agendamento #$model->id",
+                "due_date" => $model->created_at,
+                "value" => $model->price,
+                "paid_at" => null,
+                "flow" => 1
+            ];
+
+            $this->cashflow_service->store($related_cashflow);
 
             DB::commit();
         }
