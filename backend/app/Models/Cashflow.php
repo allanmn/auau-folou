@@ -14,5 +14,6 @@ class Cashflow extends Model
       "due_date",
         "value",
         "paid_at",
+        "flow"
     ];
 }

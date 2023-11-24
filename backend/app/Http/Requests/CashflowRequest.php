@@ -25,7 +25,8 @@ class CashflowRequest extends FormRequest
             "due_date" => "required",
             "value" => "required",
             "comment" => "required",
-            "paid_at" => "present"
+            "paid_at" => "present",
+            "flow" => "required"
         ];
     }
 }
