@@ -24,12 +24,12 @@ class AppointmentRequest extends FormRequest
         return [
             "scheduled_time" => "required",
             "vet_id" => "required|integer",
-            "animal_id"  => "required|integer",
-            "package_id"  => "nullable|integer",
-            "appointment_status_id"  => "required|integer",
-            "price"  => "required|decimal:",
+            "animal_id" => "required|integer",
+            "package_id" => "nullable|integer",
+            "appointment_status_id" => "required|integer",
+            "price" => "required|numeric",
             "services" => "required_if:package_id,null|array",
-            "services.*" => "integer"
+            "services.*" => "integer",
         ];
     }
 }

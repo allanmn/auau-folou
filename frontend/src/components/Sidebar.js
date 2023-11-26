@@ -7,11 +7,14 @@ import {
   ListItemText,
 } from "@mui/material";
 import {
+  CalendarMonth,
   Dashboard,
   ExitToApp,
   Healing,
+  LocalShipping,
   People,
   Pets,
+  Vaccines,
 } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -95,6 +98,19 @@ const Sidebar = () => {
         <ListItemButton
           className={styles["sidebar-list-button"]}
           component={Link}
+          to="/appointments"
+        >
+          <ListItemIcon>
+            <CalendarMonth />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Agendamentos"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
           to="/owners"
         >
           <ListItemIcon>
@@ -116,6 +132,32 @@ const Sidebar = () => {
           <ListItemText
             className={styles["sidebar-list-item-text"]}
             primary="Espécies"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/providers"
+        >
+          <ListItemIcon>
+            <LocalShipping />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Fornecedores"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/medicines"
+        >
+          <ListItemIcon>
+            <Vaccines />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Medicamentos"
           />
         </ListItemButton>
         <ListItemButton

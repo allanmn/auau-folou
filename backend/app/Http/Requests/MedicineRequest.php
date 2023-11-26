@@ -23,7 +23,7 @@ class MedicineRequest extends FormRequest
     {
         return [
             "name" => "required|string",
-            "supplier" => "required|string",
+            "supplier_id" => "required",
             "description" => "required|string",
             "dosage" => "required|string",
             "expirationDate" => "required|string",

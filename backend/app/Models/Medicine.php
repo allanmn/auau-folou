@@ -18,7 +18,7 @@ class Medicine extends Model
         "dosage",
         "expirationDate",
         "stockAvailable",
-        "price"
+        "price",
     ];
 
     protected $with = [

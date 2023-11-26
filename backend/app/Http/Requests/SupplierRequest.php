@@ -23,10 +23,12 @@ class SupplierRequest extends FormRequest
     {
         return [
             "name" => "required|string",
+            "social_name" => "required|string",
+            "doc" => "required|string",
             "phone" => "required|string",
             "email" => "required|string",
             "address" => "required|string",
-            "product_type" => "required|string"
+            "product_type" => "required|string",
         ];
     }
 }
