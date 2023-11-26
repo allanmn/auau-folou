@@ -51,7 +51,6 @@ class AppointmentService
      * @throws \Exception
      */
     public function getByDayAppointments($date){
-        info($date);
         $day_before = new \DateTime($date);
         $day_before->setTime(23,59)->modify('-1 day');
         $day_after = new \DateTime($date);
