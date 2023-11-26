@@ -64,3 +64,5 @@ Route::resource("packages", PackageController::class);
 Route::resource("appointments", AppointmentController::class);
 Route::resource("appointments-statuses", AppointmentStatusController::class);
 Route::resource("cashflows", CashflowController::class);
+Route::get('by-day-appointments',[AppointmentController::class,'getByDayAppointments']);
+Route::get('by-day-cashflows',[CashflowController::class,'getByDayCashflows']);

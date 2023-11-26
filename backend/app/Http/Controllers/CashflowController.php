@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CashflowRequest;
 use App\Services\CashflowService;
+use Symfony\Component\HttpFoundation\Request;
 
 class CashflowController extends Controller
 {
@@ -21,6 +22,13 @@ class CashflowController extends Controller
     {
         return response()->json([
             "cashflows" => $this->cashflow_service->get(),
+        ]);
+    }
+
+    public function getByDayCashflows(Request $request): \Illuminate\Http\JsonResponse
+    {
+        return response()->json([
+            "appointments" => $this->cashflow_service->getByDayCashflows($request->toArray()['date']),
         ]);
     }
 
