@@ -1,7 +1,7 @@
 import axios from "axios";
 import AuthService from "./auth";
 
-const API_BASE_URL = "http://localhost:8000/api"; // Update with your API URL
+const API_BASE_URL = "https://localhost/api"; // Update with your API URL
 
 const ApiService = (navigate) => {
   const api = axios.create({
