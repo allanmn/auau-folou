@@ -131,7 +131,7 @@ const CreateAppointmentPage = () => {
         },
         (error) => {
           setLoader({ isOpen: false });
-          showToastError(error.message);
+          showToastError(error.response.data.message);
         }
       );
   };
@@ -426,10 +426,10 @@ const CreateAppointmentPage = () => {
               value={
                 appData.id && appData.scheduled_time
                   ? parse(
-                      appData.scheduled_time,
-                      "yyyy-MM-dd HH:mm:ss",
-                      new Date()
-                    )
+                    appData.scheduled_time,
+                    "yyyy-MM-dd HH:mm:ss",
+                    new Date()
+                  )
                   : null
               }
               format="dd/MM/yyyy HH:mm"

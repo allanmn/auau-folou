@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Appointment;
 use App\Traits\Crudable;
 use DB;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class AppointmentService
 {
@@ -23,6 +24,10 @@ class AppointmentService
     {
         try {
             DB::beginTransaction();
+
+            $already_busy = $this->model->where("scheduled_time",$data["scheduled_time"])->whereIn('appointment_status_id',[2,3])->where("vet_id",$data["vet_id"])->count() > 0;
+
+            if($already_busy === true) throw new HttpException(422,"Horário Indisponível");
 
             $model = $this->model->create($data);
 
@@ -53,6 +58,10 @@ class AppointmentService
             DB::beginTransaction();
 
             $model = $this->model->findOrFail($id);
+
+            $already_busy = $this->model->where("scheduled_time",$data["scheduled_time"])->whereIn('appointment_status_id',[2,3])->where("vet_id",$data["vet_id"])->count() > 0;
+
+            if($already_busy === true) throw new HttpException(422,"Horário Indisponível");
 
             if (is_null($model->package_id)) {
                 $model->services()->sync($data['services']);
