@@ -22,7 +22,7 @@ class MedicineFactory extends Factory
             'supplier_id' => Supplier::factory(),
             'description' => $this->faker->sentence(),
             'dosage' =>  rand(1,50)."ui",
-            'expirationDate' => $this->faker->dateTimeBetween('now','+3 years')->format("Y-m-d H:i:s"),
+            'expirationDate' => $this->faker->dateTimeBetween('now','+3 years')->format("Y-m-d"),
             'stockAvailable' => rand(1,50),
             'price' => rand(12, 57) / 10,
         ];
