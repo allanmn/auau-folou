@@ -88,7 +88,7 @@ const CreateProviderPage = () => {
         .get(`/suppliers/${id}`)
         .then(
           (response) => {
-            setProviderData(response.provider);
+            setProviderData(response.Supplier);
           },
           (error) => {
             showToastError(error.message);
