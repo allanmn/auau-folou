@@ -18,13 +18,13 @@ class MedicineFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => 'Dipiroca',
+            'name' => $this->faker->word(),
             'supplier_id' => Supplier::factory(),
-            'description' => 'O melhor remedio para dor',
-            'dosage' => '30ui',
-            'expirationDate' => '30/05/2025',
-            'stockAvailable' => 25,
-            'price' => 25.00
+            'description' => $this->faker->sentence(),
+            'dosage' =>  rand(1,50)."ui",
+            'expirationDate' => $this->faker->dateTimeBetween('now','+3 years')->format("Y-m-d H:i:s"),
+            'stockAvailable' => rand(1,50),
+            'price' => rand(12, 57) / 10,
         ];
     }
 }
