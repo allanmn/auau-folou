@@ -11,7 +11,7 @@ class CashflowRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,7 @@ class CashflowRequest extends FormRequest
             "value" => "required",
             "comment" => "required",
             "paid_at" => "present",
-            "flow" => "required"
+            "flow" => "required",
         ];
     }
 }

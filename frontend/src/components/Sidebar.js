@@ -8,10 +8,12 @@ import {
 } from "@mui/material";
 import {
   CalendarMonth,
+  CurrencyExchange,
   Dashboard,
   ExitToApp,
   Healing,
   LocalShipping,
+  Money,
   People,
   Pets,
   Vaccines,
@@ -80,6 +82,19 @@ const Sidebar = () => {
           <ListItemText
             className={styles["sidebar-list-item-text"]}
             primary="Veterinários"
+          />
+        </ListItemButton>
+        <ListItemButton
+          className={styles["sidebar-list-button"]}
+          component={Link}
+          to="/cashflows"
+        >
+          <ListItemIcon>
+            <CurrencyExchange />
+          </ListItemIcon>
+          <ListItemText
+            className={styles["sidebar-list-item-text"]}
+            primary="Fluxo de caixa"
           />
         </ListItemButton>
         <ListItemButton

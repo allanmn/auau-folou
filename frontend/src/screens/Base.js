@@ -21,6 +21,7 @@ import CreateProviderPage from "./providers/CreateProviderPage";
 import ProvidersPage from "./providers/ListProvidersPage";
 import MedicinesPage from "./medicines/ListMedicinesPage";
 import CreateMedicinePage from "./medicines/CreateMedicinePage";
+import CashflowsPage from "./Cashflow";
 
 class Base extends Component {
   constructor(props) {
@@ -112,6 +113,9 @@ class Base extends Component {
         break;
       case "/medicines/update":
         this.setContent(<CreateMedicinePage />);
+        break;
+      case "/cashflows":
+        this.setContent(<CashflowsPage />);
         break;
       default:
         this.setContent(<Dashboard />);

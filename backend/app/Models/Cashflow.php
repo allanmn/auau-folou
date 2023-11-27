@@ -10,10 +10,10 @@ class Cashflow extends Model
     use HasFactory;
 
     protected $fillable = [
-      "comment",
-      "due_date",
+        "comment",
+        "due_date",
         "value",
         "paid_at",
-        "flow"
+        "flow",
     ];
 }

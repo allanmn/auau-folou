@@ -28,7 +28,7 @@ class CashflowController extends Controller
     public function getByDayCashflows(Request $request): \Illuminate\Http\JsonResponse
     {
         return response()->json([
-            "appointments" => $this->cashflow_service->getByDayCashflows($request->toArray()['date']),
+            "cashflows" => $this->cashflow_service->getByDayCashflows($request->toArray()['date']),
         ]);
     }
 

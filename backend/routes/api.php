@@ -50,10 +50,13 @@ Route::group([
 
 // Deixei fora da autenticação pra testar
 Route::get('by-day-appointments', [AppointmentController::class, 'getByDayAppointments']);
+Route::get('races-by-specie/{specie_id}', [RaceController::class, 'showRacesBySpecie']);
+Route::get('by-day-appointments', [AppointmentController::class, 'getByDayAppointments']);
+Route::get('by-day-cashflows', [CashflowController::class, 'getByDayCashflows']);
 Route::resource("owners", OwnerController::class);
 Route::resource("species", SpecieController::class);
+Route::resource("cashflows", CashflowController::class);
 Route::resource("races", RaceController::class);
-Route::get('races-by-specie/{specie_id}', [RaceController::class, 'showRacesBySpecie']);
 Route::resource("vets", VetController::class);
 Route::resource("medicines", MedicineController::class);
 Route::resource("service-types", ServiceTypeController::class);
@@ -63,6 +66,3 @@ Route::resource("services", ServiceController::class);
 Route::resource("packages", PackageController::class);
 Route::resource("appointments", AppointmentController::class);
 Route::resource("appointments-statuses", AppointmentStatusController::class);
-Route::resource("cashflows", CashflowController::class);
-Route::get('by-day-appointments',[AppointmentController::class,'getByDayAppointments']);
-Route::get('by-day-cashflows',[CashflowController::class,'getByDayCashflows']);
